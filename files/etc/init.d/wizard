@@ -48,21 +48,35 @@ _reverse_sync() {
 
 _apply_direct() {
 
+
 . /lib/functions/system.sh
-# --- Guard: this script is for the DSA build only -----------------------------
-if [ ! -e /sys/class/net/lan ] || [ ! -e /sys/class/net/wan ]; then
-    echo "ERROR: DSA port netdevs 'lan'/'wan' not found." >&2
-    echo "ERROR: This script must only run on the DSA build of the CF-WA350." >&2
+
+# --- Guard: DSA port netdevs must exist ---------------------------------------
+for p in lan1 lan2 lan3 lan4 wan; do
+    if [ ! -e "/sys/class/net/$p" ]; then
+        echo "ERROR: DSA netdev '$p' not found." >&2
+        echo "ERROR: This script must only run on the DSA build of Phicomm K2." >&2
+        exit 1
+    fi
+done
+
+# --- Vendor MAC scheme ---------------------------------------------------------
+FACTORY_MTD=$(find_mtd_part factory)
+if [ -z "$FACTORY_MTD" ]; then
+    echo "ERROR: factory partition not found." >&2
     exit 1
 fi
 
-# --- Vendor MAC scheme (same as board.d) ---------------------------------------
-LAN_MAC=$(mtd_get_mac_binary art 0x0)
-WAN_MAC=$(macaddr_add "$LAN_MAC" 1)
+LAN_MAC=$(get_mac_binary "$FACTORY_MTD" 0x28)
+WAN_MAC=$(get_mac_binary "$FACTORY_MTD" 0x2e)
+
 if [ -z "$LAN_MAC" ] || [ -z "$WAN_MAC" ]; then
-    echo "ERROR: could not read MAC address from art partition." >&2
+    echo "ERROR: could not read MAC addresses from factory partition." >&2
     exit 1
 fi
+
+echo "LAN_MAC=$LAN_MAC"
+echo "WAN_MAC=$WAN_MAC"
 
 NEW_ULA=$(printf "fd%02x:%04x:%04x::/48" $((RANDOM%256)) $((RANDOM%65536)) $((RANDOM%65536)))
 
@@ -175,23 +189,20 @@ done
 		uci -q set network.globals.ula_prefix="$NEW_ULA"
 		uci -q set network.globals.packet_steering='1'
 
-		uci -q set network.lan_dev='device'
-		uci -q set network.lan_dev.name='lan'
-		uci -q set network.lan_dev.macaddr="$LAN_MAC"
 
 		uci -q set network.wan_dev='device'
 		uci -q set network.wan_dev.name='wan'
 		uci -q set network.wan_dev.macaddr="$WAN_MAC"
 
 
-		uci -q set network.br_lan='device'
-		uci -q set network.br_lan.name='br-lan'
-		uci -q set network.br_lan.type='bridge'
-		uci -q add_list network.br_lan.ports='lan1'
-		uci -q add_list network.br_lan.ports='lan2'
-		uci -q add_list network.br_lan.ports='lan3'
-		uci -q add_list network.br_lan.ports='lan4'
-		uci -q add_list network.br_lan.ports='wan'
+		uci -q set network.lan_br='device'
+		uci -q set network.lan_br.name='br-lan'
+		uci -q set network.lan_br.type='bridge'
+		uci -q set network.lan_br.macaddr="$LAN_MAC"
+		uci -q add_list network.lan_br.ports='lan1'
+		uci -q add_list network.lan_br.ports='lan2'
+		uci -q add_list network.lan_br.ports='lan3'
+		uci -q add_list network.lan_br.ports='lan4'
 
 
 		uci -q set network.lan='interface'
