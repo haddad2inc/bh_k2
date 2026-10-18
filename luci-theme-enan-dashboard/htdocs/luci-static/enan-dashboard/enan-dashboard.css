@@ -3441,7 +3441,7 @@ body[class*="node-admin-network-wireless"] .modal .cbi-section-table .tr > :last
   display: flex; gap: 8px; justify-content: flex-end; margin-top: 16px;
 }
 
-/* ZINON logo image inside the round brand boxes */
+/* HD-Inc logo image inside the round brand boxes */
 .enan-logo img, .enan-login-logo .enan-logo img {
   width: 100%; height: 100%; object-fit: contain; border-radius: inherit; display: block;
 }

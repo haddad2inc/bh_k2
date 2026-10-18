@@ -19,11 +19,11 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>{{ _('Authentication Required') }} | ZINON</title>
+	<title>{{ _('Authentication Required') }} | A-HADDAD Dashboard</title>
 	<meta name="theme-color" content="#0a0e1a">
 	<meta name="robots" content="noindex, nofollow">
 
-	<link rel="icon" type="image/png" href="{{ media }}/enan-logo.png">
+	<link rel="icon" type="image/svg+xml" href="{{ media }}/enan-logo.svg">
 	<link rel="stylesheet" href="{{ media }}/enan-dashboard.css?v={{ pkgs_update_time }}">
 
 	<script src="{{ dispatcher.build_url('admin/translations', dispatcher.lang) }}?v={{ pkgs_update_time }}"></script>
@@ -189,9 +189,9 @@
 
 	<div class="enan-login-card">
 		<div class="enan-login-logo">
-			<div class="enan-logo"><img src="{{ media }}/enan-logo.png" alt="ZINON"></div>
-			<h1>ZINON</h1>
-			<p>Professional Networking Solutions</p>
+			<div class="enan-logo">◉</div>
+			<h1>A-HADDAD</h1>
+			<p>A-HADDAD | Professional Networking Solutions</p>
 		</div>
 
 		{% if (fuser): %}
@@ -216,7 +216,7 @@
 		</form>
 
 		<div class="enan-login-footer">
-			{{ striptags(boardinfo?.release?.description ?? 'OpenWrt') }}
+			<strong>A-HADDAD Dashboard</strong> — {{ striptags(boardinfo?.release?.description ?? 'OpenWrt') }}
 			<br>
 			Powered by {{ version?.luciname ?? 'LuCI' }} ({{ version?.luciversion ?? '' }}) / {{ version?.distname ?? 'OpenWrt' }} {{ version?.distversion ?? '' }}
 		</div>
