@@ -32,7 +32,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>{{ striptags(`${boardinfo.hostname ?? 'OpenWrt'}${dispatched?.title ? ' - ' + striptags(dispatched.title) : ''}`) }} | HD-Inc</title>
+	<title>{{ striptags(`${boardinfo.hostname ?? 'OpenWrt'}${dispatched?.title ? ' - ' + striptags(dispatched.title) : ''}`) }} | ZINON</title>
 	<meta name="theme-color" content="#0a0e1a">
 	<meta name="robots" content="noindex, nofollow">
 
@@ -69,8 +69,8 @@
 			<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
 		</button>
 		<div class="enan-topbar-brand">
-			<div class="enan-logo"><img src="{{ media }}/enan-logo.png" alt="HD-Inc"></div>
-			<span class="enan-brand-name">HD-Inc</span>
+			<div class="enan-logo"><img src="{{ media }}/enan-logo.png" alt="ZINON"></div>
+			<span class="enan-brand-name">ZINON</span>
 			<span class="enan-hostname" id="enan-hostname">{{ boardinfo?.hostname ?? 'OpenWrt' }}</span>
 		</div>
 

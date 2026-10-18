@@ -19,7 +19,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>{{ _('Authentication Required') }} | HD-Inc</title>
+	<title>{{ _('Authentication Required') }} | ZINON</title>
 	<meta name="theme-color" content="#0a0e1a">
 	<meta name="robots" content="noindex, nofollow">
 
@@ -189,8 +189,8 @@
 
 	<div class="enan-login-card">
 		<div class="enan-login-logo">
-			<div class="enan-logo"><img src="{{ media }}/enan-logo.png" alt="HD-Inc"></div>
-			<h1>HD-Inc</h1>
+			<div class="enan-logo"><img src="{{ media }}/enan-logo.png" alt="ZINON"></div>
+			<h1>ZINON</h1>
 			<p>Professional Networking Solutions</p>
 		</div>
 
